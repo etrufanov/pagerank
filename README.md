@@ -80,15 +80,27 @@ offsets:        ↑ offsets[v]        ↑ offsets[v+1]
 
 ## Запуск
 
-Программа собирается в один статический бинарник без внешних зависимостей рантайма.
+### Вариант 1. Готовый бинарник из релиза (Ubuntu 22.04+, без Rust)
+
+Если у вас Ubuntu 22.04 или новее, ставить Rust не нужно — скачайте готовый бинарник со страницы [релизов](https://github.com/etrufanov/pagerank/releases):
+
+```sh
+VERSION=v0.1.0
+curl -L -o pagerank.tar.gz \
+  "https://github.com/etrufanov/pagerank/releases/download/$VERSION/pagerank-$VERSION-x86_64-unknown-linux-gnu.tar.gz"
+tar -xzf pagerank.tar.gz
+./pagerank edges.csv -o page_rank.csv
+```
+
+Бинарник собран на Ubuntu 22.04 (glibc 2.35) и работает на 22.04 и новее без внешних зависимостей рантайма. Для остальных вариантов ниже нужен установленный Rust.
+
+### Вариант 2. Сборка из исходников
 
 Нужен установленный Rust: https://rust-lang.org/tools/install. Если его нет:
 
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
-
-### Вариант 1. Сборка из исходников
 
 Сборка и запуск:
 
@@ -100,7 +112,7 @@ cargo build --release
 ./target/release/pagerank edges.csv -o page_rank.csv
 ```
 
-### Вариант 2. Установка в PATH
+### Вариант 3. Установка в PATH
 
 ```sh
 cargo install --path .
